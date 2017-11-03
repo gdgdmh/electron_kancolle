@@ -1,0 +1,30 @@
+
+タスクリスト
+    ・ダイアログ表示(キャッシュ消去、再起動のため)
+    ・外部ログ出力機能
+
+将来タスクリスト
+    ・
+    ・condition表示
+    ・進行マップ確認
+
+
+cd D:\data\Dropbox\data\work\electron\kancolle
+electron .
+
+mac
+/Users/mh/Dropbox/data/work/electron/kancolle
+
+パッケージング
+プラットフォーム all,linux,win32,darwin のいずれかを選択
+アーキテクチャ all,ia32,x64のいずれかを選択
+バージョン Electronのバージョンを指定 electron -v で確認可能
+electron-packager [ソースディレクトリ] [アプリ名] --platform=[プラットフォーム] --arch=[アーキテクチャ] --version=[バージョン]
+
+
+
+cd /Users/mh/Desktop/electron-api-demos-master
+npm start
+
+
+
