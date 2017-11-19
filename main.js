@@ -45,6 +45,10 @@ let templateMenu = [
           }
           const {dialog} = require('electron')
           dialog.showMessageBox(options, function(response) {
+
+            const Log = require('./lib/log.js');
+            var log = new Log("shoma2da");
+            console.log(log.toString());            
             // responseに押されたものが返る
             // yesなら0
             // no もしくは cancelなら1

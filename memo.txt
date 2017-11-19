@@ -9,7 +9,7 @@
     ・進行マップ確認
 
 
-cd D:\data\Dropbox\data\work\electron\kancolle
+cd F:\data\github\electron_kancolle
 electron .
 
 mac
@@ -25,6 +25,68 @@ electron-packager [ソースディレクトリ] [アプリ名] --platform=[プ�
 
 cd /Users/mh/Desktop/electron-api-demos-master
 npm start
+
+
+-----
+javascript google style
+定数 (constant values) は NAMES_LIKE_THIS のように名づけます.
+
+基本的に次のように命名してください:
+
+functionNamesLikeThis
+variableNamesLikeThis
+ClassNamesLikeThis
+EnumNamesLikeThis
+methodNamesLikeThis
+CONSTANT_VALUES_LIKE_THIS
+foo.namespaceNamesLikeThis.bar
+filenameslikethis.js
+
+Private のプロパティ, メソッドには, 末尾にアンダースコア _ を付けてください.
+Protected のプロパティ, メソッドにはアンダースコアを付けないでください (パブリックなものと同様です).
+
+ECMAScript 5 ではプロパティへの getter/setter の使用が推奨されていません. 
+やむを得なく使用する場合は, 観測できる状態を変更しないようにする必要があります.
+/**
+ * 間違い -- このようにはしないでください
+ */
+var foo = { get next() { return this.nextId++; } };
+};
+
+getter, setter は必須ではありません. もし使う場合は getFoo(), setFoo(value) という名前にしてください.
+ (boolean の getter の場合は isFoo() も許可されています. こちら のほうがより自然です.)
+
+
+JavaScript は階層的なパッケージングや名前空間をサポートしていません.
+グローバル名前衝突が起こるとデバッグは難しくなり, 2つのプロジェクトの統合も難しくなります.
+ 名前の衝突を避け, 共有できる JavaScript コードをモジュール化するために, 以下のような規約を設けています.
+グローバルなコードには名前空間を使う
+グローバルスコープに出すものには, プロジェクトやライブラリ名に関連したプレフィックスを常に付けてください.
+ 例えば “Project Sloth” の場合, sloth.* という具合です.
+var sloth = {};
+sloth.sleep = function() {
+  ...
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
