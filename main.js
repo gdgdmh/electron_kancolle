@@ -21,7 +21,29 @@ let templateMenu = [
         label: 'cache clear',
         click()
         {
-          require('electron').session.defaultSession.clearCache(() => {})
+          const options = {
+            type: 'info',
+            title: '注意',
+            message: "キャッシュのクリアと再起動を行います",
+            buttons: ['いいえ', 'はい']
+          }
+          const {dialog} = require('electron')
+          dialog.showMessageBox(options, function(response) {
+
+            const Log = require('./lib/log.js');
+            var log = new Log();
+            // responseに押されたものが返る
+            // yesなら0
+            // no もしくは cancelなら1
+            var response_str = "dialog_result=" + response;
+            log.write(response_str);
+            if (response == 1) {
+              // 再起動
+              app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+              app.exit(0)
+              electron.session.defaultSession.clearCache(() => {})
+            }
+          })
         }
       },
       {
@@ -29,8 +51,28 @@ let templateMenu = [
         label: 'reboot',
         click()
         {
-          app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
-          app.exit(0)
+          const options = {
+            type: 'info',
+            title: '注意',
+            message: "再起動を行います",
+            buttons: ['いいえ', 'はい']
+          }
+          const {dialog} = require('electron')
+          dialog.showMessageBox(options, function(response) {
+
+            const Log = require('./lib/log.js');
+            var log = new Log();
+            // responseに押されたものが返る
+            // yesなら0
+            // no もしくは cancelなら1
+            var response_str = "dialog_result=" + response;
+            log.write(response_str);
+            if (response == 1) {
+              // 再起動
+              app.relaunch({args: process.argv.slice(1).concat(['--relaunch'])})
+              app.exit(0)
+            }
+          })
         }
       },
       {
@@ -53,20 +95,7 @@ let templateMenu = [
             // no もしくは cancelなら1
             var response_str = "dialog_result=" + response;
             log.write(response_str);
-         })
-          /*
-          ipc.on('open-information-dialog', function(event) {
-            const options = {
-              type: 'info',
-              title: 'Infomation',
-              message: "This is an information dialog",
-              buttons: ['Yes', 'No']
-            }            
-            dialog.showMessageBox(options, function(index) {
-              event.sender.send('infomaation-dialog-selection', index)
-            })
           })
-          */
         }
       }
     ]
