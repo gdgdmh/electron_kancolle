@@ -5,7 +5,7 @@ const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const ipc = require('electron').ipcMain;
-var fs = require('fs');
+//var fs = require('fs');
 let templateMenu = [
   {
     label: 'Edit',
@@ -47,20 +47,13 @@ let templateMenu = [
           dialog.showMessageBox(options, function(response) {
 
             const Log = require('./lib/log.js');
-            var log = new Log("shoma2da");
-            console.log(log.toString());            
+            var log = new Log();
             // responseに押されたものが返る
             // yesなら0
             // no もしくは cancelなら1
-            console.log(response)
-            var response_str = "dialog_result=" + response + "\n";
-            fs.appendFile(__dirname + '/log.txt', response_str, 'UTF-8', function(err) {
-              if (err) {
-                // error発生
-                console.log(err);
-              }
-            })
-          })
+            var response_str = "dialog_result=" + response;
+            log.write(response_str);
+         })
           /*
           ipc.on('open-information-dialog', function(event) {
             const options = {
