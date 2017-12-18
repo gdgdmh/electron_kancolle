@@ -6,6 +6,9 @@ const BrowserWindow = electron.BrowserWindow;
 const Menu = electron.Menu;
 const ipc = require('electron').ipcMain;
 //var fs = require('fs');
+const Log = require('./lib/log.js');
+var log = new Log();
+
 let templateMenu = [
   {
     label: 'Edit',
@@ -30,8 +33,6 @@ let templateMenu = [
           const {dialog} = require('electron')
           dialog.showMessageBox(options, function(response) {
 
-            const Log = require('./lib/log.js');
-            var log = new Log();
             // responseに押されたものが返る
             // yesなら0
             // no もしくは cancelなら1
@@ -59,9 +60,6 @@ let templateMenu = [
           }
           const {dialog} = require('electron')
           dialog.showMessageBox(options, function(response) {
-
-            const Log = require('./lib/log.js');
-            var log = new Log();
             // responseに押されたものが返る
             // yesなら0
             // no もしくは cancelなら1
@@ -87,9 +85,6 @@ let templateMenu = [
           }
           const {dialog} = require('electron')
           dialog.showMessageBox(options, function(response) {
-
-            const Log = require('./lib/log.js');
-            var log = new Log();
             // responseに押されたものが返る
             // yesなら0
             // no もしくは cancelなら1
@@ -134,9 +129,11 @@ app.on('window-all-closed', function() {
   // not mac
   if (process.platform !== 'darwin') {
     app.quit();
+  } else {
   }
+  log.console('window-all-closed finish');
 });
- 
+
 app.on('ready', function() {
   // default window size
   mainWindow = new BrowserWindow({
@@ -144,14 +141,31 @@ app.on('ready', function() {
     height: 600,
   });
   // first load url
-  mainWindow.loadURL(`http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/`);
-  //mainWindow.loadURL(`https://www.google.co.jp/`);
+  //mainWindow.loadURL(`http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/`);
+  mainWindow.loadURL(`https://www.google.co.jp/`);
   
   mainWindow.on('closed', function() {
     mainWindow = null;
   });
 });
 
+// URLフックの登録
+app.on('ready', function() {
+
+  const {session} = require('electron')
+  const filter = {
+    urls: ['https://*', 'http://*']
+  }
+
+  log.console('ready url register');
+  //session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+  //})
+
+  session.defaultSession.webRequest.onResponseStarted(filter, (details) => {
+    log.console(details.statusCode);
+  })
+
+});
 
 /*
 const electron = require('electron');
