@@ -1,11 +1,14 @@
 
 タスクリスト
-    ・ダイアログ表示(キャッシュ消去、再起動のため)
-    ・外部ログ出力機能
+    ・URLフック処理
+    ・Json解析
 
 将来タスクリスト
-    ・
     ・condition表示
+    ・大破状況確認
+        ・候補
+            ・データ
+            ・スクリーンショット
     ・進行マップ確認
 
 
@@ -13,6 +16,12 @@ cd F:\data\github\electron_kancolle
 electron .
 
 mac
+cd /Users/mh/electron_kancolle/
+electron .
+
+
+
+
 /Users/mh/Dropbox/data/work/electron/kancolle
 
 パッケージング

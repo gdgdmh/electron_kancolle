@@ -141,8 +141,8 @@ app.on('ready', function() {
     height: 600,
   });
   // first load url
-  //mainWindow.loadURL(`http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/`);
-  mainWindow.loadURL(`https://www.google.co.jp/`);
+  mainWindow.loadURL(`http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/`);
+  //mainWindow.loadURL(`https://www.google.co.jp/`);
   
   mainWindow.on('closed', function() {
     mainWindow = null;
@@ -162,8 +162,16 @@ app.on('ready', function() {
   //})
 
   session.defaultSession.webRequest.onResponseStarted(filter, (details) => {
-    log.console(details.statusCode);
+    //log.console(details.statusCode);
   })
+
+  session.defaultSession.webRequest.onCompleted(filter,(details) => {
+    log.console(details.url);
+    log.console(details.method);
+    log.console(details.responseHeaders);
+  })
+
+
 
 });
 
